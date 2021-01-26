@@ -1,0 +1,14 @@
+{
+	"name": "Magnet Finder",
+	"version": "0.2",
+	"description": "Encontre links magnéticos facilmente com essa extensão! Find magnet links easily with this extension!",
+	"author": "Herbert Souza",
+	"browser_action": {
+		"default_popup":"index.html",
+		"default_icon": "icon.png"
+	},
+	"icons": {
+		"128": "icon.png"
+	},
+	"manifest_version": 2
+}

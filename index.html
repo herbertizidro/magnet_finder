@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+<meta charset="utf-8"/>
+<title>Magnet Find</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&family=Didact+Gothic&display=swap" rel="stylesheet">
+<style type="text/css">
+	
+	body{
+	  width: 550px;
+	  padding: 3px;
+	}
+	
+	*{
+		font-family: 'Barlow Condensed', sans-serif;
+		font-family: 'Didact Gothic', sans-serif;
+		font-size: 15px;
+	}
+	
+	.alert {
+	  margin-bottom: 1px;
+	  height: 30px;
+	  line-height:30px;
+	  padding:0px 15px;
+	}
+	
+	a:hover{
+	  text-decoration: none;
+	}
+
+	#status-busca{
+		font-size: 13px;
+		margin-top: 8px;
+		margin-bottom: 5px;
+		margin-left: 2px;
+		margin-right: 2px;
+	}
+	
+	#erro{
+		font-size: 12px;
+		margin-top: 8px;
+	}
+	
+	::-webkit-scrollbar {
+	  width: 4px;
+	  border: 1px solid #d5d5d5;
+	}
+
+	::-webkit-scrollbar-track {
+	  border-radius: 0;
+	  background: #eeeeee;
+	}
+
+	::-webkit-scrollbar-thumb {
+	  border-radius: 0;
+	  background: #b0b0b0;
+	}
+
+</style>
+
+<script src="script.js"></script>
+</head>
+
+<body>
+			
+	<div class="logo shadow-sm">
+		<center>
+			<img class="mt-2 mb-2" src='logo.png' style='pointer-events: none;'>
+		</center>
+	</div>
+		
+	<div class="input-group mt-3">
+		<select id="option" class="form-control rounded-0 form-control-sm shadow-none" id="exampleFormControlSelect1">
+		  <option value="">All</option>
+		  <option value="Video">Video</option>
+		  <option value="Audio">Audio</option>
+		  <option value="Games">Games</option>
+		  <option value="Applications">Applications</option>
+		  <option value="Other">Other</option>
+		</select>
+		<input id='termo-pesquisa' style="width: 150px;" class='form-control rounded-0 form-control-sm shadow-none' type='text' data-toggle="tooltip" data-placement="bottom" title="Search for movies, music, games ...">							
+			<div class="input-group-append" style='font-size: 13px;'>
+				<button id='btn' type="submit" class="btn btn-sm rounded-0 text-white shadow-none" style="background-color: #4E5B60;">Search</button>
+			</div>
+	</div>
+  
+	<div id='status-busca'></div>
+	<div id='erro'></div>
+	<footer class="mt-2 text-center" style='font-size: 13px; background-color: #4E5B60;'>
+		<a class="text-white" href="https://www.paypal.com/donate?hosted_button_id=MSN54ZZLSGPP2" data-toggle="tooltip" data-placement="bottom" title="Support us. Make a contribution of any value!" target='_blank'>Donate &#10084;</a>
+	</footer>
+
+</body>
+</html>
