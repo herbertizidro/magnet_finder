@@ -5,3 +5,5 @@ para adicionar a extensão ao Chrome: acesse "chrome://extensions/", clique em "
 ou instale no seu navegador direto da [Chrome Web Store](https://chrome.google.com/webstore/detail/magnet-finder/gmmdnbmmjmoddokgggkbfehpbfepaman/related?hl=pt-BR&authuser=0)
 
 <img src="https://raw.githubusercontent.com/herbertizidro/magnet_finder/main/print.jpg">
+
+Vídeo de demonstração: https://www.youtube.com/watch?v=_KBLN3L3vig
