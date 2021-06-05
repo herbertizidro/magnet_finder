@@ -7,3 +7,5 @@ ou instale no seu navegador direto da [Chrome Web Store](https://chrome.google.c
 <img src="https://raw.githubusercontent.com/herbertizidro/magnet_finder/main/print.jpg">
 
 Vídeo de demonstração: https://www.youtube.com/watch?v=_KBLN3L3vig
+
+Documentação: arquivo documentacao-magnet-finder.html
