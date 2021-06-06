@@ -8,4 +8,4 @@ ou instale no seu navegador direto da [Chrome Web Store](https://chrome.google.c
 
 Vídeo de demonstração: https://www.youtube.com/watch?v=_KBLN3L3vig
 
-Documentação: arquivo documentacao-magnet-finder.html
+Documentação: documentacao-magnet-finder.html
