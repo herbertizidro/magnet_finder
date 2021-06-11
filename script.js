@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
 	function exibeConteudoDiv(conteudo, divEsconde, divMostra){
 		mostrarEsconderDiv(divEsconde, 'none') // esconde a div
 		mostrarEsconderDiv(divMostra, 'block') // mostra a div	
-		inserirConteudoDiv('#' + divMostra, conteudo) // exibe uma mensagem de erro
+		inserirConteudoDiv('#' + divMostra, conteudo) // exibe o conteudo
 	}
 	
 	// aguarda um evento clique no botão "pesquisar"
