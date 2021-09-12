@@ -25,21 +25,25 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
 	// aguarda um evento clique no botão "pesquisar"
 	document.querySelector('#btn').addEventListener('click', function(){
 		let select = document.getElementById('option');
-		let select_item = select.options[select.selectedIndex].value; // opção escolhida (audio, video, games e etc)
-		let select_value;
+		let select_item = select.options[select.selectedIndex].value; // categoria escolhida (audio, video, games e etc)
+		let select_value; // termos utilizados para representar a categoria em diferentes sites
 		
-		if(select_item == ""){
-			select_value = [""]
-		}else if(select_item == "Video"){
-			select_value = ["Movie", "Video", "TV", "Show"]
-		}else if(select_item == "Audio"){
-			select_value = ["Music", "Audio"]
-		}else if(select_item == "Applications"){
-			select_value = ["Application", "App", "Software"]
-		}else if(select_item == "Games"){
-			select_value = ["Games"]
-		}else{
-			select_value = ["Other"]
+		// atualização para exibir uma maior quantidade de resultados de acordo com a categoria especificada
+		switch (select_item) {
+		  case "Video":
+		    select_value = ["Movie", "Video", "TV", "Show"]
+		    break
+		  case "Audio":
+		    select_value = ["Music", "Audio"]
+		    break
+		  case "Applications":
+		    select_value = ["Application", "App", "Software"]
+		    break
+		  case "Games":
+		    select_value = ["Games"]
+		    break
+		  default:
+		    select_value = ["Other"]
 		}
 		
 		exibeConteudoDiv(spinner, 'erro', 'status-busca') // coloca o spinner bootstrap na div "status-busca"
