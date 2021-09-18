@@ -25,11 +25,13 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
 	// aguarda um evento clique no botão "pesquisar"
 	document.querySelector('#btn').addEventListener('click', function(){
 		let select = document.getElementById('option');
-		let select_item = select.options[select.selectedIndex].value; // categoria escolhida (audio, video, games e etc)
-		let select_value; // termos utilizados para representar a categoria em diferentes sites
+		let select_item = select.options[select.selectedIndex].value; // opção escolhida (audio, video, games e etc)
+		let select_value;
 		
-		// atualização para exibir uma maior quantidade de resultados de acordo com a categoria especificada
 		switch (select_item) {
+		  case "Other":
+		    select_value = [Other]
+			break
 		  case "Video":
 		    select_value = ["Movie", "Video", "TV", "Show"]
 		    break
@@ -43,8 +45,10 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
 		    select_value = ["Games"]
 		    break
 		  default:
-		    select_value = ["Other"]
+		    select_value = []
 		}
+		
+		//console.log(select_value)
 		
 		exibeConteudoDiv(spinner, 'erro', 'status-busca') // coloca o spinner bootstrap na div "status-busca"
 
@@ -68,13 +72,21 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
 								}else{
 									tabela = '<table class="table"><thead><tr><th scope="col">Results for ' + pesquisa + ' in category ' + select_item + ':</th></thead><tbody>'	
 								}
-								for (let j = 0; j < json.length; j++){
-									for (let l = 0; l < select_value.length; l++){
-										if(json[j]["type"].indexOf(String(select_value[l])) != -1){ // filtra os resultados de acordo com a categoria escolhida no select
-											tabela = tabela + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + json[j]['name'] + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + json[j]['type'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>'
+								
+								if(select_value.length > 0){ // verifica se o array possui as categorias
+									for (let j = 0; j < json.length; j++){
+										for (let l = 0; l < select_value.length; l++){
+											if(json[j]["type"].indexOf(String(select_value[l])) != -1){ // filtra os resultados de acordo com a categoria escolhida no select
+												tabela = tabela + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + json[j]['name'] + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + json[j]['type'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>'
+											}
 										}
 									}
-								}							
+								}else{ // não possui categorias para filtrar, então é a opção All do select
+									for (let j = 0; j < json.length; j++){						
+										tabela = tabela + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + json[j]['name'] + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + json[j]['type'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>'									
+									}
+								}
+								
 								tabela = tabela + '</tbody></table>'
 								// exibe a tabela
 								exibeConteudoDiv(tabela, 'erro', 'status-busca')
