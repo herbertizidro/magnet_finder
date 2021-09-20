@@ -73,18 +73,20 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
 									tabela = '<table class="table"><thead><tr><th scope="col">Results for ' + pesquisa + ' in category ' + select_item + ':</th></thead><tbody>'	
 								}
 								
+								let nomeFormatado;
+								
 								if(select_value.length > 0){ // verifica se o array possui as categorias
 									for (let j = 0; j < json.length; j++){
 										for (let l = 0; l < select_value.length; l++){
 											if(json[j]["type"].indexOf(String(select_value[l])) != -1){ // filtra os resultados de acordo com a categoria escolhida no select
-												let nomeFormatado = json[j]['name'].length > 70 ? json[j]['name'].substr(0, 69) + " ..." : json[j]['name']; // alguns resultados possuem o nome muito longo, estraga o layout
+												nomeFormatado = json[j]['name'].length > 70 ? json[j]['name'].substr(0, 69) + " ..." : json[j]['name']; // alguns resultados possuem o nome muito longo, estraga o layout
 												tabela = tabela + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + nomeFormatado + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + json[j]['type'] + '&nbsp;&nbsp;|&nbsp;&nbsp;<br>Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>'
 											}
 										}
 									}
 								}else{ // não possui categorias para filtrar, então é a opção All do select
 									for (let j = 0; j < json.length; j++){
-										let nomeFormatado = json[j]['name'].length > 70 ? json[j]['name'].substr(0, 69) + " ..." : json[j]['name'];										
+										nomeFormatado = json[j]['name'].length > 70 ? json[j]['name'].substr(0, 69) + " ..." : json[j]['name'];										
 										tabela = tabela + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + nomeFormatado + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + json[j]['type'] + '&nbsp;&nbsp;|&nbsp;&nbsp;<br>Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>'									
 									}
 								}
