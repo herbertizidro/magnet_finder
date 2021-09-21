@@ -74,13 +74,15 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
 								}
 								
 								let nomeFormatado;
+								let tipoFormatado;
 								
 								if(select_value.length > 0){ // verifica se o array possui as categorias
 									for (let j = 0; j < json.length; j++){
 										for (let l = 0; l < select_value.length; l++){
 											if(json[j]["type"].indexOf(String(select_value[l])) != -1){ // filtra os resultados de acordo com a categoria escolhida no select
 												nomeFormatado = json[j]['name'].length > 70 ? json[j]['name'].substr(0, 69) + " ..." : json[j]['name']; // alguns resultados possuem o nome muito longo, estraga o layout
-												tabela = tabela + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + nomeFormatado + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + json[j]['type'] + '&nbsp;&nbsp;|&nbsp;&nbsp;<br>Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>'
+												tipoFormatado = select_item == select_value[l] ? select_item : select_item + " > " + select_value[l];
+												tabela = tabela + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + nomeFormatado + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + tipoFormatado + '&nbsp;&nbsp;|&nbsp;&nbsp;<br>Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>'
 											}
 										}
 									}
