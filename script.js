@@ -68,9 +68,9 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
 							if(json.length > 0 ){
 								// monta a tabela com os resultados da busca
 								if(select_item == ""){
-									tabela = '<table class="table"><thead><tr><th scope="col">Results for ' + pesquisa + ' in category All:</th></thead><tbody>'
+									tabela = '<table class="table"><thead><tr><th scope="col">' + json.length + ' results - All - ' + pesquisa + '</th></thead><tbody>'
 								}else{
-									tabela = '<table class="table"><thead><tr><th scope="col">Results for ' + pesquisa + ' in category ' + select_item + ':</th></thead><tbody>'	
+									tabela = '<table class="table"><thead><tr><th scope="col">' + json.length + ' results - ' + select_item + ' - ' + pesquisa + '</th></thead><tbody>'	
 								}
 								
 								let nomeFormatado;
