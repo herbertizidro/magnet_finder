@@ -9,18 +9,18 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
     
     // funções pra controlar a exibição do conteúdo(mensagens de erro ou resultados de pesquisa)
     
-    function mostrarEsconder(id, estilo){
+    function mostrarOuEsconderDiv(id, estilo){
         document.getElementById(id).style.display = estilo; // none ou block - aplica o estilo na div do conteúdo
     }
     
-    function inserirConteudo(id, conteudo){
+    function inserirConteudoDiv(id, conteudo){
         document.querySelector(id).innerHTML = conteudo; // conteúdo pode ser a tabela com os resultados ou uma mensagem de erro
     }
     
-    function exibeConteudoDiv(conteudo, divEsconde, divMostra){ // função principal - exibe o resultado da busca do usuário alternando entre a tabela
-        mostrarEsconder(divEsconde, 'none')                    // ou mensagens de erro
-        mostrarEsconder(divMostra, 'block')
-        inserirConteudo('#' + divMostra, conteudo)
+    function exibirResultadoBusca(conteudo, divEsconde, divMostra){ // função principal - exibe o resultado da busca do usuário alternando entre a tabela
+        mostrarOuEsconderDiv(divEsconde, 'none')                    // ou mensagens de erro
+        mostrarOuEsconderDiv(divMostra, 'block')
+        inserirConteudoDiv('#' + divMostra, conteudo)
     }
     
     // aguarda um evento clique no botão "pesquisar"
@@ -52,13 +52,13 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
         
         //console.log(select_value)
         
-        exibeConteudoDiv(spinner, 'erro', 'status-busca') // coloca o spinner bootstrap na div "status-busca"
+        exibirResultadoBusca(spinner, 'erro', 'resultado-busca') // coloca o spinner bootstrap na div "resultado-busca"
 
         let pesquisa = document.querySelector('#termo-pesquisa').value; // pega o termo de pesquisa
         try{
 
             if(pesquisa.length == 0){ // caso clique em "pesquisar" sem ter colocado o termo antes
-                exibeConteudoDiv(erro_termo_ausente, 'status-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida
+                exibirResultadoBusca(erro_termo_ausente, 'resultado-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida
             }else{
                 
                 let url = `https://sumanjay.up.railway.app/torrent/?query=${pesquisa}`; // url da API + o termo
@@ -97,22 +97,23 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
                                 
                                 tabela = tabela + '</tbody></table>'
                                 // exibe a tabela
-                                exibeConteudoDiv(tabela, 'erro', 'status-busca')
+                                exibirResultadoBusca(tabela, 'erro', 'resultado-busca')
                     
                             }else{
                                 // mostra mensagem de erro pro caso da pesquisa não retornar conteúdo
-                                exibeConteudoDiv(erro_nao_encontrado, 'status-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida                             
+                                exibirResultadoBusca(erro_nao_encontrado, 'resultado-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida                             
                             }
                         }catch(e){
                             // mostra mensagem de erro relacionado a algum erro interno - conexão lenta por exemplo
-                            exibeConteudoDiv(erro_interno, 'status-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida                        
+                            exibirResultadoBusca(erro_interno, 'resultado-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida                        
                         }
                     })
                 }
             
         }catch(e){
             // mostra mensagem de erro relacionado a algum erro interno
-            exibeConteudoDiv(erro_interno, 'status-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida
+            exibirResultadoBusca(erro_interno, 'resultado-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida
+            console.log(e)
         }
         
     })
