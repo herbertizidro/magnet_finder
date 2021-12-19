@@ -68,13 +68,8 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
                     }).then(json => {
                         try{ // verifica se o json tem algum conteúdo e gera a tabela(<table>)
                             if(json.length > 0 ){
-                                // monta a tabela com os resultados da busca
-                                if(select_item == ""){
-                                    tabela = '<table class="table"><thead><tr><th scope="col">' + json.length + ' results - All - ' + pesquisa + '</th></thead><tbody>'
-                                }else{
-                                    tabela = '<table class="table"><thead><tr><th scope="col">' + json.length + ' results - ' + select_item + ' - ' + pesquisa + '</th></thead><tbody>' 
-                                }
-                                
+                                // cabeçalho da tabela
+                                tabela = select_item == "" ? '<table class="table"><thead><tr><th scope="col"> All - ' + pesquisa.toUpperCase() + '</th></thead><tbody>' : '<table class="table"><thead><tr><th scope="col"> ' + select_item + ' - ' + pesquisa.toUpperCase() + '</th></thead><tbody>';
                                 let nomeFormatado;
                                 let tipoFormatado;
                                 
@@ -106,14 +101,13 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
                         }catch(e){
                             // mostra mensagem de erro relacionado a algum erro interno - conexão lenta por exemplo
                             exibirResultadoBusca(erro_interno, 'resultado-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida                        
-                        }
+						}
                     })
                 }
             
         }catch(e){
             // mostra mensagem de erro relacionado a algum erro interno
             exibirResultadoBusca(erro_interno, 'resultado-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida
-            console.log(e)
         }
         
     })
