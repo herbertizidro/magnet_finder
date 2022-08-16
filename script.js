@@ -1,27 +1,18 @@
 document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento HTML estar completamente carregado
     
     // spinner e mensagens de erro
-    const spinner = '<div class="d-flex justify-content-center"><div class="spinner-border" style="color: #FF1616; width: 2rem; height: 2rem;" role="status"><span class="sr-only">Loading...</span></div></div>'; // loading spinner 
-    const erro_termo_ausente = '<div class="alert rounded-0 alert-danger text-center" style="height: 33px;" role="alert">&#10060;&nbsp;&nbsp; Ops, nothing to search! Enter the name of a movie, music, software ... </div>'; // mensagem de erro 
-    // pra quando o usuário tenta pesquisar sem inserir um termo(nome de filme, música e etc)
+    const spinner = '<div class="d-flex justify-content-center"><div class="spinner-border" style="color: #FF1616; width: 2rem; height: 2rem;" role="status"><span class="sr-only">Loading...</span></div></div>';
+    const erro_termo_ausente = '<div class="alert rounded-0 alert-danger text-center" style="height: 33px;" role="alert">&#10060;&nbsp;&nbsp; Ops, nothing to search! Enter the name of a movie, music, software ... </div>';
     const erro_nao_encontrado = '<div class="alert rounded-0 alert-danger text-center" style="height: 33px;" role="alert">Sorry, no result found! &#128557;</div>';
     const erro_interno = '<div class="alert rounded-0 alert-danger text-center" style="height: 33px;" role="alert">&#10060;&nbsp;&nbsp; The search could not be completed, please try again later.</div>';
     
-    // funções pra controlar a exibição do conteúdo(mensagens de erro ou resultados de pesquisa)
-    
-    function mostrarOuEsconderDiv(id, estilo){
-        document.getElementById(id).style.display = estilo; // none ou block - aplica o estilo na div do conteúdo
+  
+    const adicionarConteudoDiv = (conteudo, divEsconde, divMostra) => {  
+	document.getElementById(divEsconde).style.display = 'none';
+	document.getElementById(divMostra).style.display = 'block';
+	document.querySelector('#' + divMostra).innerHTML = conteudo;
     }
     
-    function inserirConteudoDiv(id, conteudo){
-        document.querySelector(id).innerHTML = conteudo; // conteúdo pode ser a tabela com os resultados ou uma mensagem de erro
-    }
-    
-    function exibirResultadoBusca(conteudo, divEsconde, divMostra){ // função principal - exibe o resultado da busca do usuário alternando entre a tabela
-        mostrarOuEsconderDiv(divEsconde, 'none')                    // ou mensagens de erro
-        mostrarOuEsconderDiv(divMostra, 'block')
-        inserirConteudoDiv('#' + divMostra, conteudo)
-    }
     
     // aguarda um evento clique no botão "pesquisar"
     document.querySelector('#btn').addEventListener('click', function(){
@@ -52,21 +43,21 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
         
         //console.log(select_value)
         
-        exibirResultadoBusca(spinner, 'erro', 'resultado-busca') // coloca o spinner bootstrap na div "resultado-busca"
+        adicionarConteudoDiv(spinner, 'erro', 'resultado-busca') // coloca o spinner bootstrap na div "resultado-busca"
 
         let pesquisa = document.querySelector('#termo-pesquisa').value; // pega o termo de pesquisa
         try{
 
-            if(pesquisa.length == 0){ // caso clique em "pesquisar" sem ter colocado o termo antes
-                exibirResultadoBusca(erro_termo_ausente, 'resultado-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida
+            if(pesquisa.length == 0){
+                adicionarConteudoDiv(erro_termo_ausente, 'resultado-busca', 'erro')
             }else{
                 
-                let url = `https://sumanjay.up.railway.app/torrent/?query=${pesquisa}`; // url da API + o termo
+                let url = `https://sumanjay.up.railway.app/torrent/?query=${pesquisa}`;
                 
-                fetch(url).then(res => { // faz a requisição e obtem um json
+                fetch(url).then(res => {
                         return res.json();
                     }).then(json => {
-                        try{ // verifica se o json tem algum conteúdo e gera a tabela(<table>)
+                        try{
                             if(json.length > 0 ){
                                 // cabeçalho da tabela
                                 tabela = select_item == "" ? '<table class="table"><thead><tr><th scope="col"> All - ' + pesquisa.toUpperCase() + '</th></thead><tbody>' : '<table class="table"><thead><tr><th scope="col"> ' + select_item + ' - ' + pesquisa.toUpperCase() + '</th></thead><tbody>';
@@ -92,22 +83,19 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
                                 
                                 tabela = tabela + '</tbody></table>'
                                 // exibe a tabela
-                                exibirResultadoBusca(tabela, 'erro', 'resultado-busca')
+                                adicionarConteudoDiv(tabela, 'erro', 'resultado-busca')
                     
                             }else{
-                                // mostra mensagem de erro pro caso da pesquisa não retornar conteúdo
-                                exibirResultadoBusca(erro_nao_encontrado, 'resultado-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida                             
+                                adicionarConteudoDiv(erro_nao_encontrado, 'resultado-busca', 'erro')                         
                             }
                         }catch(e){
-                            // mostra mensagem de erro relacionado a algum erro interno - conexão lenta por exemplo
-                            exibirResultadoBusca(erro_interno, 'resultado-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida                        
+                            adicionarConteudoDiv(erro_interno, 'resultado-busca', 'erro')                      
 						}
                     })
                 }
             
         }catch(e){
-            // mostra mensagem de erro relacionado a algum erro interno
-            exibirResultadoBusca(erro_interno, 'resultado-busca', 'erro') // o erro que será exibido, a div que será escondida e a div que será exibida
+            adicionarConteudoDiv(erro_interno, 'resultado-busca', 'erro')
         }
         
     })
