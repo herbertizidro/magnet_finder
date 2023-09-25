@@ -1,3 +1,4 @@
+// código um pouco antigo, fique a vontade para refatorar =)
 document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento HTML estar completamente carregado
     
     // spinner e mensagens de erro
@@ -17,31 +18,31 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
     // aguarda um evento clique no botão "pesquisar"
     document.querySelector('#btn').addEventListener('click', function(){
         let select = document.getElementById('option');
-        let select_item = select.options[select.selectedIndex].value; // opção escolhida (audio, video, games e etc)
-        let select_value;
+        let select_value = select.options[select.selectedIndex].value; // opção escolhida (audio, video, games e etc)
+        let categories;
         
         // subcategorias da api - esse trecho garante uma maior quantidade de resultados
-        switch (select_item) {
+        switch (select_value) {
           case "Other":
-            select_value = ["Other"]
+            categories = ["Other"]
             break
           case "Video":
-            select_value = ["Movie", "Video", "TV", "Show"]
+            categories = ["Movie", "Video", "TV", "Show"]
             break
           case "Audio":
-            select_value = ["Music", "Audio"]
+            categories = ["Music", "Audio"]
             break
           case "Applications":
-            select_value = ["Application", "App", "Software"]
+            categories = ["Application", "App", "Software"]
             break
           case "Games":
-            select_value = ["Games"]
+            categories = ["Games"]
             break
           default:
-            select_value = []
+            categories = []
         }
         
-        // console.log(select_value)
+        // console.log(categories)
         
         addContent(spinner, 'erro', 'resultado-busca') // coloca o spinner bootstrap na div "resultado-busca"
 
@@ -64,12 +65,12 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
                                 let nameFormatted;
                                 let typeFormatted;
                                 
-                                if(select_value.length > 0){ // verifica se o array possui as categorias
+                                if(categories.length > 0){ // verifica se o array possui as categorias
                                     for (let j = 0; j < json.length; j++){
-                                        for (let l = 0; l < select_value.length; l++){
-                                            if(json[j]["type"].indexOf(String(select_value[l])) != -1){ // filtra os resultados de acordo com a categoria escolhida no select
+                                        for (let l = 0; l < categories.length; l++){
+                                            if(json[j]["type"].indexOf(String(categories[l])) != -1){ // filtra os resultados de acordo com a categoria escolhida no select
                                                 nameFormatted = json[j]['name'].length > 70 ? json[j]['name'].substr(0, 69) + " ..." : json[j]['name']; // alguns resultados possuem o nome muito longo, estraga o layout
-                                                typeFormatted = select_item == select_value[l] ? select_item : select_item + " > " + select_value[l];
+                                                typeFormatted = select_item == categories[l] ? select_item : select_item + " > " + categories[l];
                                                 table = table + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + nameFormatted + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + typeFormatted + '&nbsp;&nbsp;|&nbsp;&nbsp;<br>Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>'
                                             }
                                         }
