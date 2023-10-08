@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
                         try{
                             if(json.length > 0 ){
                                 // cabeçalho da tabela
-                                table = select_item == "" ? '<table class="table"><thead><tr><th scope="col"> All - ' + search.toUpperCase() + '</th></thead><tbody>' : '<table class="table"><thead><tr><th scope="col"> ' + select_item + ' - ' + search.toUpperCase() + '</th></thead><tbody>';
+                                table = select_value === "" ? '<table class="table"><thead><tr><th scope="col"> All - ' + search.toUpperCase() + '</th></thead><tbody>' : '<table class="table"><thead><tr><th scope="col"> ' + select_value + ' - ' + search.toUpperCase() + '</th></thead><tbody>';
                                 let nameFormatted;
                                 let typeFormatted;
                                 
@@ -70,28 +70,28 @@ document.addEventListener('DOMContentLoaded', function(){ // aguarda o documento
                                         for (let l = 0; l < categories.length; l++){
                                             if(json[j]["type"].indexOf(String(categories[l])) != -1){ // filtra os resultados de acordo com a categoria escolhida no select
                                                 nameFormatted = json[j]['name'].length > 70 ? json[j]['name'].substr(0, 69) + " ..." : json[j]['name']; // alguns resultados possuem o nome muito longo, estraga o layout
-                                                typeFormatted = select_item == categories[l] ? select_item : select_item + " > " + categories[l];
-                                                table = table + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + nameFormatted + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + typeFormatted + '&nbsp;&nbsp;|&nbsp;&nbsp;<br>Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>'
+                                                typeFormatted = select_value === categories[l] ? select_value : select_value + " > " + categories[l];
+                                                table = table + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + nameFormatted + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + typeFormatted + '&nbsp;&nbsp;|&nbsp;&nbsp;<br>Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>';
                                             }
                                         }
                                     }
                                 }else{ // não possui categorias para filtrar, então é a opção All do select
                                     for (let j = 0; j < json.length; j++){
                                         nameFormatted = json[j]['name'].length > 70 ? json[j]['name'].substr(0, 69) + " ..." : json[j]['name'];                                     
-                                        table = table + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + nameFormatted + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + json[j]['type'] + '&nbsp;&nbsp;|&nbsp;&nbsp;<br>Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>'                                    
+                                        table = table + '<tr><td>' + '<a href="' + json[j]['url'] +'" target="_blank">' + nameFormatted + '</a><br> Size: ' + json[j]['size'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Seeder: ' + json[j]['seeder'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Leecher: ' + json[j]['leecher'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Type: ' + json[j]['type'] + '&nbsp;&nbsp;|&nbsp;&nbsp;<br>Age: ' + json[j]['age'] + '&nbsp;&nbsp;|&nbsp;&nbsp;Site: ' + json[j]['site'] +'&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' + json[j]['magnet'] + '" target="_blank">Download</a></td></tr>';                                    
                                     }
                                 }
                                 
-                                table = table + '</tbody></table>'
+                                table = table + '</tbody></table>';
                                 // exibe a tabela
-                                addContent(table, 'erro', 'resultado-busca')
+                                addContent(table, 'erro', 'resultado-busca');
                     
                             }else{
-                                addContent(notFoundError, 'resultado-busca', 'erro')                         
+                                addContent(notFoundError, 'resultado-busca', 'erro');                     
                             }
                         }catch(e){
-                            addContent(internalError, 'resultado-busca', 'erro')                      
-						}
+                            addContent(internalError, 'resultado-busca', 'erro');                    
+			}
                     })
                 }
             
